@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - n 20.10.0
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build phase...
+      - mkdir -p build
+      - cp -R * build
+artifacts:
+  files:
+    - build/**
+  discard-paths: no

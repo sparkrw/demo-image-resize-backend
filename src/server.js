@@ -2,9 +2,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import sharp from 'sharp';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
+
+// Enable CORS for all requests
+app.use(cors());
 
 // Middleware to parse JSON bodies with large payloads
 app.use(bodyParser.json({ limit: '10mb' }));

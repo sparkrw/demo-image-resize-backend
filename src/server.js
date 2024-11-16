@@ -34,7 +34,7 @@ app.post('/resize', async (req, res) => {
 
         // Remove the data URI prefix if present
         const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
-        const buffer = Buffer.from(imageBase64, 'base64');
+        const buffer = Buffer.from(base64Data, 'base64');
         console.log('Decoded buffer size:', buffer.length);
 
         // Check image format and metadata
@@ -55,7 +55,10 @@ app.post('/resize', async (req, res) => {
 
         // Send the resized image back as a response
         console.log('Sending response with resized image');
-        res.json({ resizedImageBase64: resizedBase64 });
+        res.json({
+            resizedImageBase64: resizedBase64,
+            comment: "Image resized successfully"
+        });
     } catch (error) {
         console.error('Error processing image:', error);
         res.status(500).json({ error: 'Failed to process the image. Please check your input.' });

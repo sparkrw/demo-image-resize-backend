@@ -4,38 +4,43 @@ import bodyParser from 'body-parser';
 import sharp from 'sharp';
 
 const app = express();
-const port = 80;
+const port = 3000;
 
 // Middleware to parse JSON bodies with large payloads
 app.use(bodyParser.json({ limit: '10mb' }));
 
-// Health check API
-app.get('/health', (req, res) => {
-    res.json({ status: 'OK', message: 'Server is running and healthy.' });
-});
-
 // POST API to receive base64 image, resize, and return
 app.post('/resize', async (req, res) => {
     try {
+        console.log('Received request at /resize endpoint');
+
         const { imageBase64, width, height } = req.body;
+        console.log('Request body:', { width, height });
 
         // Validate input
         if (!imageBase64 || !width || !height) {
+            console.error('Validation error: Missing imageBase64, width, or height');
             return res.status(400).json({ error: 'Missing imageBase64, width, or height in request body.' });
         }
 
         // Decode the base64 image
+        console.log('Decoding base64 image');
         const buffer = Buffer.from(imageBase64, 'base64');
 
         // Resize the image using sharp
+        console.log('Resizing image to width:', width, 'height:', height);
         const resizedBuffer = await sharp(buffer)
             .resize(parseInt(width), parseInt(height))
             .toBuffer();
 
+        console.log('Image resized successfully');
+
         // Convert the resized image back to base64
         const resizedBase64 = resizedBuffer.toString('base64');
+        console.log('Converted resized image back to base64');
 
         // Send the resized image back as a response
+        console.log('Sending response with resized image');
         res.json({ resizedImageBase64: resizedBase64 });
     } catch (error) {
         console.error('Error processing image:', error);

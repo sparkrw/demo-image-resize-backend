@@ -164,6 +164,10 @@ Resources:
             #!/bin/bash
             # Update all installed packages
             dnf -y update
+            # Install Node.js
+            curl --silent --location https://rpm.nodesource.com/setup_20.x | bash -
+            dnf -y install nodejs
+            npm install forever -g
             # Install Ruby and AWS CLI
             dnf install -y ruby
             dnf install -y aws-cli

@@ -10,7 +10,7 @@ phases:
     commands:
       #list all files
       - ls -la
-      #test
+      #test2
       - echo Build phase...
       - echo enviroment variable
       - echo $ENV_VAR

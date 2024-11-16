@@ -14,9 +14,8 @@ phases:
       - echo Build phase...
       - echo enviroment variable
       - echo $ENV_VAR
-      - mkdir -p build
-      - cp -R * build
+
 artifacts:
   files:
-    - build/**
-  discard-paths: no
+      - "**/*"
+  base-directory: ./

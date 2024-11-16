@@ -18,7 +18,6 @@ app.get('/health', (req, res) => {
     console.log('Healthcheck endpoint hit');
     res.status(200).json({ status: 'Healthy' });
 });
-
 // POST API to receive base64 image, resize, and return
 app.post('/resize', async (req, res) => {
     try {
@@ -33,9 +32,14 @@ app.post('/resize', async (req, res) => {
             return res.status(400).json({ error: 'Missing imageBase64, width, or height in request body.' });
         }
 
-        // Decode the base64 image
-        console.log('Decoding base64 image');
-        const buffer = Buffer.from(imageBase64, 'base64');
+        // Remove the data URI prefix if present
+        const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+        const buffer = Buffer.from(base64Data, 'base64');
+        console.log('Decoded buffer size:', buffer.length);
+
+        // Check image format and metadata
+        const metadata = await sharp(buffer).metadata();
+        console.log('Image metadata:', metadata);
 
         // Resize the image using sharp
         console.log('Resizing image to width:', width, 'height:', height);

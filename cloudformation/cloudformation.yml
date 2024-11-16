@@ -124,6 +124,8 @@ Resources:
             Principal:
               Service: ec2.amazonaws.com
             Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy
       Policies:
         - PolicyName: S3FullGetAccessPolicy
           PolicyDocument:
@@ -195,8 +197,8 @@ Resources:
       VpcId: !Ref MyVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 3000
-          ToPort: 3000
+          FromPort: 80
+          ToPort: 80
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
           FromPort: 443
@@ -235,7 +237,7 @@ Resources:
       Protocol: HTTP
       VpcId: !Ref MyVPC
       TargetType: instance
-      HealthCheckPath: /s
+      HealthCheckPath: /health
       HealthCheckProtocol: HTTP
       HealthCheckIntervalSeconds: 30
       HealthCheckTimeoutSeconds: 5
@@ -252,7 +254,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref MyTargetGroup
       LoadBalancerArn: !Ref MyLoadBalancer
-      Port: 3000
+      Port: 80
       Protocol: HTTPS
       Certificates:
         - CertificateArn: !Ref MyCertificateArn

@@ -4,10 +4,15 @@ import bodyParser from 'body-parser';
 import sharp from 'sharp';
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 // Middleware to parse JSON bodies with large payloads
 app.use(bodyParser.json({ limit: '10mb' }));
+
+// Health check API
+app.get('/health', (req, res) => {
+    res.json({ status: 'OK', message: 'Server is running and healthy.' });
+});
 
 // POST API to receive base64 image, resize, and return
 app.post('/resize', async (req, res) => {

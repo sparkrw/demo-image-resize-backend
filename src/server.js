@@ -34,7 +34,7 @@ app.post('/resize', async (req, res) => {
 
         // Remove the data URI prefix if present
         const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
-        const buffer = Buffer.from(base64Data, 'base64');
+        const buffer = Buffer.from(imageBase64, 'base64');
         console.log('Decoded buffer size:', buffer.length);
 
         // Check image format and metadata

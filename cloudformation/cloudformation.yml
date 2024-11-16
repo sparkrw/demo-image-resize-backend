@@ -185,7 +185,7 @@ Resources:
       LaunchTemplate:
         LaunchTemplateId: !Ref MyLaunchTemplate
         Version: !GetAtt MyLaunchTemplate.LatestVersionNumber
-      MinSize: 1
+      MinSize: 0
       MaxSize: 3
       DesiredCapacity: 1 #일단 생성시 EC2 하나 생성
       VPCZoneIdentifier:

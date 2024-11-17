@@ -57,7 +57,7 @@ app.post('/resize', async (req, res) => {
         console.log('Sending response with resized image');
         res.json({
             resizedImageBase64: resizedBase64,
-            comment: "Hello, AWS Classroom"
+            comment: "Hello, This IS AWS Classroom"
         });
     } catch (error) {
         console.error('Error processing image:', error);

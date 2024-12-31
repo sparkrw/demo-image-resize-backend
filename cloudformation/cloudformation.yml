@@ -16,7 +16,12 @@ Parameters:
     Description: ARN of the ACM certificate to be used for HTTPS termination
     Default: arn:aws:acm:ap-northeast-2:101306651421:certificate/ecba61af-338e-4950-8567-7aa8f865ab5b
 Resources:
-
+  ServiceDomainParameterStore:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "${AWS::StackName}-ServiceDomain"
+      Type: String
+      Value: !Sub "https://${ServiceDomain}"
   #VPC 
   MyVPC:
     Type: "AWS::EC2::VPC"

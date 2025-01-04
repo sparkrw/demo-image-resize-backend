@@ -8,7 +8,7 @@ Resources:
     Properties:
       Name: !Sub "${AWS::StackName}-ServiceDomain"
       Type: String
-      Value: !GetAtt MyLoadBalancer.DNSName
+      Value: !Join ['', ['http://', !GetAtt MyLoadBalancer.DNSName]]
   #VPC 
   MyVPC:
     Type: "AWS::EC2::VPC"
